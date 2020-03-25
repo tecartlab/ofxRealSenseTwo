@@ -1,0 +1,6 @@
+*/bin
+*/*.make
+*/*.xcodeproj
+*/Makefile
+*/*.plist
+*/*.xcconfig

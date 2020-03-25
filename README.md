@@ -45,10 +45,11 @@ Untested:
 ## Installation
 
 * Clone this repo into the \<openframeworksfolder>/addons/ folder.
+* BE AWARE: This repo is [using LFS](https://www.atlassian.com/git/tutorials/git-lfs) for its binary libraries..
 
 ### Instructions
 
-Use project generator to create the visual studio and XCode projectfiles by pressing 'import' and navigate to the example folder. press update.
+Use project generator to create the visual studio and XCode project files by pressing 'import' and navigate to this addons example folder. press 'update'.
 
 #### Windows exe
 

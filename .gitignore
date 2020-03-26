@@ -4,3 +4,7 @@
 */Makefile
 */*.plist
 */*.xcconfig
+example-*-rgb/example-pointcloud-rgb.*
+*/icon.rc
+*/.vs/
+*/obj/

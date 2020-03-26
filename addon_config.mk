@@ -15,11 +15,11 @@
 # and the PG will write to the console the kind of error and in which line it is
 
 meta:
-	ADDON_NAME = ofxRSSDAK
+	ADDON_NAME = ofxRealSenseTwo
 	ADDON_DESCRIPTION = An Openframeworks addon to use the RealSense cameras.
 	ADDON_AUTHOR = Martin Froehlich
 	ADDON_TAGS = "computer vision" "point cloud" "image processing" "stereo imaging"
-	ADDON_URL = https://github.com/tecartlab/ofxRSSDK
+	ADDON_URL = https://github.com/tecartlab/ofxRealSenseTwo
 
 common:
 	# dependencies with other addons, a list of them separated by spaces
@@ -77,7 +77,7 @@ vs:
 	ADDON_DLLS_TO_COPY += libs/IntelRealSense_2.33.1/lib/vs/x64/realsense2.dll
 	ADDON_DLLS_TO_COPY += libs/IntelRealSense_2.33.1/lib/vs/x64/Intel.Realsense.dll
 
-	ADDON_LIBS = libs/IntelRealSense_2.33.1/lib/vs/x64
+	ADDON_LIBS = libs/IntelRealSense_2.33.1/lib/vs/x64/
 
 osx:
 	ADDON_DLLS_TO_COPY =
@@ -87,7 +87,7 @@ osx:
 
 	#ADDON_LIBS = libs/IntelRealSense_2.33.1/lib/osx/librealsense2.2.33.1.dylib
 
-	ADDON_LDFLAGS = -rpath ../../../../addons/ofxRSSDK/libs/IntelRealSense_2.33.1/lib/osx/
+	ADDON_LDFLAGS = -rpath ../../../../addons/ofxRealSenseTwo/libs/IntelRealSense_2.33.1/lib/osx/
 
 	ADDON_INCLUDES += /usr/local/opt/libusb/include/libusb-1.0
 

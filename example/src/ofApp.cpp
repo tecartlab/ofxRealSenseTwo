@@ -51,7 +51,7 @@ void ofApp::setup()
 //--------------------------------------------------------------
 void ofApp::update()
 {
-	if (realSense->update(ofxRSSDK::PointCloud::INFRALEFT)) {
+	if (realSense->update(ofxRealSenseTwo::PointCloud::INFRALEFT)) {
 		// if a frame has been updated, the code continues in here,
 		// in case you need to do something special...
 		/*

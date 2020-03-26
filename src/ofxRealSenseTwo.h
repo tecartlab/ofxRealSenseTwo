@@ -43,7 +43,7 @@
 
 using namespace std;
 
-namespace ofxRSSDK
+namespace ofxRealSenseTwo
 {
 	class RSDevice;
 	typedef unique_ptr<RSDevice> RSDevicePtr;

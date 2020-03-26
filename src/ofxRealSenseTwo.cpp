@@ -1,5 +1,5 @@
 #include <exception>
-#include "ofxRSSDKv2.h"
+#include "ofxRealSenseTwo.h"
 #include "ofMain.h"
 
 //sdjk https://github.com/IntelRealSense/librealsense
@@ -8,7 +8,7 @@
 // howtos: https://github.com/IntelRealSense/librealsense/wiki/API-How-To#get-depth-units
 // Aligning: https://github.com/IntelRealSense/librealsense/tree/master/examples/align
 
-namespace ofxRSSDK
+namespace ofxRealSenseTwo
 {	
 
 	RSDevice::~RSDevice(){

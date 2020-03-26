@@ -1,10 +1,9 @@
 */bin
-*/*.make
 */*.xcodeproj
 */Makefile
 */*.plist
 */*.xcconfig
-example-*-rgb/example-pointcloud-rgb.*
+*/example.*
 */icon.rc
 */.vs/
 */obj/

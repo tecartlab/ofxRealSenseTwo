@@ -2,11 +2,11 @@
 #define __OFAPP_H__
 #include <vector>
 #include "ofMain.h"
-#include "ofxRSSDKv2.h"
+#include "ofxRealSenseTwo.h"
 #include "ofxGui.h"
 
 using namespace std;
-using namespace ofxRSSDK;
+using namespace ofxRealSenseTwo;
 
 class ofApp : public ofBaseApp
 {

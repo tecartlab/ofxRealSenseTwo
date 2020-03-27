@@ -55,18 +55,34 @@ Use project generator to create the Visual Studio and XCode project files by pre
 
 #### Windows exe
 
-1. copy
+1. open Visual Studio project.
+2. copy
    * /libs/IntelRealSense_2.xx.x/lib/vs/x64/Intel.Realsense.dll
    * /libs/IntelRealSense_2.xx.x/lib/vs/x64/realsense2.dll
    * /libs/IntelRealSense_2.xx.x/lib/vs/x64/realsense2.lib
 
-   into the **bin** folder before you build the app.
+    into the **bin** folder.
 
-2. Open Visual Studio 17, choose solution platform **x64** and build the app. (only libraries for x64 are provided with this ofx)
+3. choose solution platform **x64** and build the app. (only libraries for x64 are provided with this ofx)
 
 #### OSX app
 
--- to be added
+1. open XCode project.
+2. If you desire the create a standalone app you have to make the following changes to the XCode project:
+   1. select the project inside the project navigator
+   2. select tab **Build Phases**
+   3. press **+** and select 'New Run script phase'
+   4. copy paste the following code:
+      ```
+   cp -r $OF_PATH/addons/ofxRealSenseTwo/libs/IntelRealSense_2.33.1/lib/osx/ $TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/
+cd $TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/
+install_name_tool -change @rpath/librealsense2.2.33.dylib @executable_path/librealsense2.2.33.dylib $PRODUCT_NAME
+       ```
+       into the little editor of the new phase.
+  5. switch active scheme to Release.
+  6. run build.
+  7. the created app should have now have the needed realsense library inside the bundle.
+
 
 ## credits
 

@@ -91,6 +91,12 @@ namespace ofxRealSenseTwo
 		Playback = 2
 	};
 
+    enum Alignment
+    {
+        ToDepth = 0,
+        ToColor = 1
+    };
+
 	enum FilterPersistency
 	{
 		DISABLED			= 0,	//Persistency filter is not activated and no hole filling occurs.
@@ -171,6 +177,25 @@ namespace ofxRealSenseTwo
 		bool isRunning();
 
 		public: ofParameter<string> param_recordingPath; //recording file path  (default= ofFilePath::getCurrentExeDir() + "data/pointRecording.bag")
+
+        /**
+        Use Frame Alignment
+        enable frame alignment
+        do their job....
+        */
+        public: void useFrameAlignment(bool const & type);
+        private: void useFrameAlignment_p(bool & type);
+        public: ofParameter<bool> param_useFrameAlignment; //parameter for use with ofxGUI
+
+
+        /**
+        Frame Alignment
+        0 -> align color to depth, 1 -> align depth to color
+        do their job....
+        */
+        public: void frameAlignment(bool const & type);
+        private: void frameAlignment_p(bool & type);
+        public: ofParameter<bool> param_frameAlignment; //parameter for use with ofxGUI
 
 		/**
 		Global setting to enable/disable postprocessing
@@ -379,8 +404,11 @@ namespace ofxRealSenseTwo
 		*/
 		public: ofParameter<string> param_deviceProjectorTemparature;
 
-		const ofPixels&	getVideoFrame(); 
+        // returns three plane pixels (rgb)
+		const ofPixels&	getVideoFrame();
+        // returns three plane pixels (rgb)
 		const ofPixels&	getDepthFrame();
+        // returns one plane pixels (grayscale)
 		const ofPixels&	getInfraLeftFrame();
 
 		ofMesh getPointCloud();
@@ -462,7 +490,7 @@ namespace ofxRealSenseTwo
 	private:
 		float get_depth_scale(rs2::device dev);
 
-		int depthWidth, depthHeight, videoWidth, videoHeight;
+		int depthWidth, depthHeight, videoWidth, videoHeight, frameAlignmentDir;
 
 		bool
 			mIsInit,
@@ -476,7 +504,8 @@ namespace ofxRealSenseTwo
 			isUsingFilterDec, 
 			isUsingFilterSpat, 
 			isUsingFilterTemp, 
-			isUsingFilterDisparity;
+			isUsingFilterDisparity,
+            isUsingFrameAlignment;
 
 		AlignMode		mAlignMode;
 		CloudRes		mCloudRes;
@@ -487,8 +516,11 @@ namespace ofxRealSenseTwo
 		glm::vec2			mVideoStreamSize;
 		glm::vec2			mInfraredStreamSize;
 
+        // three plane pixels (rgb)
 		ofPixels		mVideoFrame;
+        // three plane pixels (rgb)
 		ofPixels		mDepthFrame;
+        // one plane pixels (grayscale)
 		ofPixels		mInfraLeftFrame;
 
 		// Declare depth colorizer for pretty visualization of depth data
@@ -502,6 +534,13 @@ namespace ofxRealSenseTwo
 		// Declare RealSense pipeline, encapsulating the actual device and sensors
 		std::shared_ptr<rs2::pipeline> rs2Pipe;
 
+        // Define two align objects. One will be used to align
+        // to depth viewport and the other to color.
+        // Creating align object is an expensive operation
+        // that should not be performed in the main loop
+        std::shared_ptr<rs2::align> rs2AlignDepth;
+        std::shared_ptr<rs2::align> rs2AlignColor;
+    
 		// Profile
 		rs2::pipeline_profile rs2PipeLineProfile;
 

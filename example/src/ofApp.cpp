@@ -13,6 +13,8 @@ void ofApp::setup()
 
 	ofLogNotice("Device detected..");
 	gui_post.setup("PostProcessing", "postprocessingSetup", 0, 0); // most of the time you don't need a name but don't forget to call setup
+    gui_post.add(realSense->param_useFrameAlignment);
+    gui_post.add(realSense->param_frameAlignment);
 	gui_post.add(realSense->param_usePostProcessing);
 	gui_post.add(realSense->param_filterDecimation);
 	gui_post.add(realSense->param_filterDecimation_mag);
@@ -51,7 +53,7 @@ void ofApp::setup()
 //--------------------------------------------------------------
 void ofApp::update()
 {
-	if (realSense->update(ofxRealSenseTwo::PointCloud::INFRALEFT)) {
+	if (realSense->update(ofxRealSenseTwo::PointCloud::VIDEO)) {
 		// if a frame has been updated, the code continues in here,
 		// in case you need to do something special...
 		/*

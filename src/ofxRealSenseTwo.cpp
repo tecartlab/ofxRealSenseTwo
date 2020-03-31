@@ -28,6 +28,7 @@ namespace ofxRealSenseTwo
 		isUsingFilterTemp = false;
 		isUsingFilterDisparity = false;
 		isUsingPostProcessing = false;
+        frameAlignmentDir = 0;
 
 		mIsRunning = false;
 		mIsCapturing = false;
@@ -39,8 +40,13 @@ namespace ofxRealSenseTwo
 		depthHeight = 480;
 		videoWidth = 1280;
 		videoHeight = 720;
+        
+        param_useFrameAlignment.set("use FrameAlign",false);
+        param_useFrameAlignment.addListener(this, &RSDevice::useFrameAlignment_p);
 
-		// setting up ofParameters
+        param_frameAlignment.set("Align toDepth/toColor", false);
+        param_frameAlignment.addListener(this, &RSDevice::frameAlignment_p);
+
 		param_usePostProcessing.set("use PostProcessing", false);
 		param_usePostProcessing.addListener(this, &RSDevice::usePostProcessing_p);
 
@@ -102,6 +108,9 @@ namespace ofxRealSenseTwo
 
 		// create new pipeline
 		rs2Pipe = std::make_shared<rs2::pipeline>();
+        
+        rs2AlignDepth = std::make_shared<rs2::align>(RS2_STREAM_DEPTH);
+        rs2AlignColor = std::make_shared<rs2::align>(RS2_STREAM_COLOR);
 	}
 
 #pragma region Init
@@ -250,6 +259,19 @@ namespace ofxRealSenseTwo
 		if (rs2Pipe->poll_for_frames(&rs2FrameSet))
 		{
 			// if there is a frame...
+
+            if (isUsingFrameAlignment){
+                if (frameAlignmentDir == Alignment::ToDepth)
+                {
+                    // Align all frames to depth viewport
+                    rs2FrameSet = rs2AlignDepth->process(rs2FrameSet);
+                }
+                else if(frameAlignmentDir == Alignment::ToColor)
+                {
+                    // Align all frames to color viewport
+                    rs2FrameSet = rs2AlignColor->process(rs2FrameSet);
+                }
+            }
 
 			// get the depth data from the frame
 			rs2Depth = rs2FrameSet.first(RS2_STREAM_DEPTH);
@@ -561,7 +583,27 @@ namespace ofxRealSenseTwo
 		}
 	}
 
-	void RSDevice::usePostProcessing_p(bool & enable) {
+    void RSDevice::useFrameAlignment_p(bool & enable) {
+        useFrameAlignment(enable);
+    }
+        
+    void RSDevice::useFrameAlignment(bool const & enable) {
+        isUsingFrameAlignment = enable;
+    }
+
+    void RSDevice::frameAlignment_p(bool & enable) {
+        frameAlignment(enable);
+    }
+        
+    void RSDevice::frameAlignment(bool const & enable) {
+        if(enable){
+            frameAlignmentDir = Alignment::ToColor;
+        } else {
+            frameAlignmentDir = Alignment::ToDepth;
+        }
+    }
+
+    void RSDevice::usePostProcessing_p(bool & enable) {
 		usePostProcessing(enable);
 	}
 	void RSDevice::usePostProcessing(bool const & enable) {

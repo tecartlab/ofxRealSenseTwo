@@ -87,10 +87,11 @@ void ofApp::draw()
 
 	mCamera.end();
 
-	ofDrawBitmapString("fps: " + ofToString(ofGetFrameRate()), ofGetWidth() - 200, 10);
+    ofSetColor(ofColor::black);
+	ofDrawBitmapString("fps: " + ofToString(ofGetFrameRate()), ofGetWidth() - 200, 20);
 
-	gui_post.draw();
-	gui_device.draw();
+    gui_post.draw();
+    gui_device.draw();
 }
 
 

@@ -331,6 +331,7 @@ namespace ofxRealSenseTwo
 
 			ofPixels colors;
 
+
 			// map the depth point cloud according to the chosen frame stream
 			switch (color) {
 			case 0:
@@ -368,7 +369,8 @@ namespace ofxRealSenseTwo
 				//cout << "created new mesh: " << dHeight << "/" << dWidth << endl;
 			}
 
-			//float firstTime = ofGetElapsedTimef();  
+             
+			//float firstTime = ofGetElapsedTimef();
 
 			// get the point cloud data
 			auto vertices = rs2Points.get_vertices();              // get vertices
